@@ -1,0 +1,167 @@
+@import "tailwindcss";
+/* @import "tw-animate-css" layer(utilities); */
+
+@custom-variant dark (&:is(.dark *));
+
+/* ======================================================
+   Base CSS Variables
+====================================================== */
+
+:root {
+  --brand-red: #c0261a;
+  --brand-red-dark: #9b1c12;
+  --brand-red-light: #d63a2c;
+
+  --background: #080808;
+  --background-secondary: #111111;
+  --card: #161616;
+
+  --foreground: #ffffff;
+  --border: #262626;
+
+  --radius: 0.75rem;
+}
+
+/* ======================================================
+   Tailwind Theme Tokens
+====================================================== */
+
+@theme inline {
+  /* Colors */
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-brand: var(--brand-red);
+  --color-brand-dark: var(--brand-red-dark);
+  --color-brand-light: var(--brand-red-light);
+  --color-border: var(--border);
+
+  /* Fonts */
+  --font-sans: var(--font-inter);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+}
+
+/* ======================================================
+   Global Styles
+====================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ======================================================
+   Animations
+====================================================== */
+
+@keyframes sonar-pulse {
+  0% { transform: scale(.8); opacity: .6; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(-15deg); }
+  50% { transform: translateY(-18px) rotate(-15deg); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 20px rgb(192 38 26 / .4)); }
+  50% { filter: drop-shadow(0 0 40px rgb(192 38 26 / .8)); }
+}
+
+/* --- TRON BACKGROUND ANIMATIONS --- */
+@keyframes tron-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 60px; /* Matches backgroundSize Y */ }
+}
+
+@keyframes stream-fall {
+  0% { transform: translateY(-100vh); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(200vh); opacity: 0; }
+}
+
+@keyframes shape-float {
+  0% { transform: translateY(0) rotate(45deg); opacity: 0.4; }
+  50% { 
+    transform: translateY(-30px) rotate(45deg); 
+    opacity: 0.8; 
+    box-shadow: 0 0 30px rgba(192, 38, 26, 0.4), inset 0 0 30px rgba(192, 38, 26, 0.4); 
+  }
+  100% { transform: translateY(0) rotate(45deg); opacity: 0.4; }
+}
+
+/* ======================================================
+   Custom Classes
+====================================================== */
+
+.rocket-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.rocket-glow {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.sonar-pulse {
+  animation: sonar-pulse 2s ease-out infinite;
+}
+
+.anime-init {
+  opacity: 0;
+}
+
+/* --- TRON BACKGROUND CLASSES --- */
+.data-stream {
+  position: absolute;
+  top: -100%;
+  width: 1px;
+  height: 60%;
+  background: linear-gradient(to bottom, transparent, rgba(192, 38, 26, 0.8), transparent);
+  box-shadow: 0 0 10px rgba(192, 38, 26, 1);
+  animation: stream-fall linear infinite;
+  z-index: 5;
+}
+
+.floating-shape {
+  position: absolute;
+  border: 1.5px solid rgba(192, 38, 26, 0.6);
+  box-shadow: 0 0 20px rgba(192, 38, 26, 0.2), inset 0 0 20px rgba(192, 38, 26, 0.2);
+  z-index: 15;
+  animation: shape-float 6s ease-in-out infinite;
+}
+
+/* ======================================================
+   Dark Theme
+====================================================== */
+
+.dark {
+  --background: #080808;
+  --background-secondary: #111111;
+  --card: #161616;
+  --foreground: #ffffff;
+  --border: #262626;
+}
