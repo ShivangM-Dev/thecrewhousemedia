@@ -1,0 +1,66 @@
+[
+  {
+    "id": "SYS-WEBDV-01",
+    "iconName": "Globe",
+    "title": "Web Development",
+    "tagline": "ARCH-SCALABLE / HIGH-PERF",
+    "description": "We build high-performance, visually compelling websites engineered for user experience and conversion. From responsive design to scalable architecture, our focus is on creating a robust digital foundation that drives business growth.",
+    "link": "/services/web-development"
+  },
+  {
+    "id": "SYS-SOCMM-02",
+    "iconName": "Smartphone",
+    "title": "Social Media Marketing",
+    "tagline": "STRAT-ENGAGE / DATA-DRIVEN",
+    "description": "We craft data-driven social media strategies that build brand awareness, foster community engagement, and deliver measurable business results across platforms like Instagram, Facebook, LinkedIn, and more.",
+    "link": "/services/social-media"
+  },
+  {
+    "id": "SYS-PERFM-03",
+    "iconName": "TrendingUp",
+    "title": "Performance Marketing",
+    "tagline": "FUNNEL-OPT / ROI-MAXIMIZER",
+    "description": "Our targeted campaigns are designed to maximize ROI through paid ads, retargeting, and funnel optimization. We track and optimize every rupee spent to ensure your marketing budget delivers the highest possible return.",
+    "link": "/services/performance-marketing"
+  },
+  {
+    "id": "SYS-UGCCC-04",
+    "iconName": "Video",
+    "title": "UGC Content Creation",
+    "tagline": "TRUST-MATRIX / SOCIAL-PROOF",
+    "description": "We harness the power of user-generated content to build authentic brand trust and credibility. By amplifying your most loyal customers' voices, we create powerful, relatable connections with your target audience.",
+    "link": "/services/ugc-content"
+  },
+  {
+    "id": "SYS-AICNT-05",
+    "iconName": "Cpu",
+    "title": "AI Content Creation",
+    "tagline": "CORE-GENERATIVE / SCALE-GEN",
+    "description": "We leverage cutting-edge AI tools to generate high-quality, scalable content that is both creative and data-optimized — from blog posts and ad copy to product descriptions — keeping your brand ahead of the curve.",
+    "link": "/services/ai-content"
+  },
+  {
+    "id": "SYS-SEOPT-06",
+    "iconName": "Search",
+    "title": "Search Engine Optimization",
+    "tagline": "RANK-INDEX / ORGANIC-FLOW",
+    "description": "We improve your online visibility and drive consistent organic traffic through strategic SEO — covering on-page optimization, technical audits, keyword research, and link building to rank you at the top of search results.",
+    "link": "/services/seo"
+  },
+  {
+    "id": "SYS-INFLM-07",
+    "iconName": "Users",
+    "title": "Influencer Marketing",
+    "tagline": "NODE-AMPLIFY / MATRIX-REACH",
+    "description": "We connect your brand with authentic, niche-relevant influencers who genuinely promote your products to their audiences. Our campaigns are designed to build trust, expand reach, and drive real conversions.",
+    "link": "/services/influencer-marketing"
+  },
+  {
+    "id": "SYS-BRAND-08",
+    "iconName": "Camera",
+    "title": "Branding & Product Shoot",
+    "tagline": "VIS-STORY / ASSET-CAPTURE",
+    "description": "We capture your brand's unique identity through professional photography and creative styling. Our visual storytelling is designed to create a strong, consistent brand image across all marketing channels.",
+    "link": "/services/branding-shoots"
+  }
+]
