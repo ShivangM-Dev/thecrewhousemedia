@@ -1,11 +1,10 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { ArrowUpRight } from 'lucide-react';
-import Image from 'next/image';
+import { ArrowUpRight, TerminalSquare, Radio, ShieldAlert } from 'lucide-react';
 import { fadeUp, slideIn, staggerFadeUp } from '@/lib/animate';
 import { Canvas } from '@react-three/fiber';
-import RocketModel from "@/components/Rocket"
+import RocketModelFix from "@/components/Rocketmodelfix"
 import StudioLights from './three/StudioLightes';
 import { Environment, Float, PresentationControls } from '@react-three/drei'
 
@@ -16,7 +15,6 @@ export default function HeroSection() {
   const buttonsRef = useRef<HTMLDivElement>(null);
   const annotationRef = useRef<HTMLDivElement>(null);
   const rocketRef = useRef<HTMLDivElement>(null);
-  const ringsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fadeUp(taglineRef.current, { delay: 200, duration: 700 });
@@ -34,38 +32,28 @@ export default function HeroSection() {
 
     slideIn(annotationRef.current, { x: -20, delay: 1200, duration: 700 });
     slideIn(rocketRef.current, { x: 80, delay: 500, duration: 1000 });
-
-    if (ringsRef.current) {
-      staggerFadeUp(ringsRef.current.children as unknown as NodeListOf<Element>, {
-        distance: 0,
-        duration: 800,
-        startDelay: 600,
-        stagger: 150,
-      });
-    }
   }, []);
 
   return (
     <section
       style={{
         minHeight: '100vh',
-        paddingTop: 80,
+        paddingTop: 100,
         position: 'relative',
         overflow: 'hidden',
-        backgroundColor: 'var(--bg-primary)',
       }}
+      className="select-none z-10"
     >
-      {/* Background radial glow */}
+      {/* Background system glow */}
       <div
         style={{
           position: 'absolute',
-          top: '10%',
+          top: '5%',
           right: '5%',
-          width: 700,
-          height: 700,
+          width: 600,
+          height: 600,
           borderRadius: '50%',
-          background:
-            'radial-gradient(circle, rgba(192,38,26,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(192,38,26,0.08) 0%, transparent 70%)',
           pointerEvents: 'none',
         }}
       />
@@ -76,64 +64,67 @@ export default function HeroSection() {
           margin: '0 auto',
           padding: '0 24px',
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
+          gridTemplateColumns: '1.2fr 0.8fr',
           alignItems: 'center',
-          minHeight: 'calc(100vh - 80px)',
-          gap: 40,
+          minHeight: 'calc(100vh - 100px)',
+          gap: 60,
         }}
         className="hero-grid"
       >
-        {/* Left content */}
-        <div style={{ paddingTop: 40, paddingBottom: 40 }}>
-          <p
-            ref={taglineRef}
-            style={{
-              color: 'var(--brand-red)',
-              fontSize: 13,
-              fontWeight: 700,
-              letterSpacing: '0.18em',
-              textTransform: 'uppercase',
-              marginBottom: 24,
-              opacity: 0,
-            }}
-          >
-            BUILD. GROW. SCALE.
-          </p>
+        {/* Left Side: System Controls & Readout */}
+        <div style={{ paddingTop: 20, paddingBottom: 40 }} className="font-mono">
+          
+          {/* Tagline / System Core Indicator */}
+          <div ref={taglineRef} className="flex items-center gap-2 text-[var(--brand-red)] text-xs font-bold tracking-[0.3em] uppercase mb-6 opacity-0">
+            <Radio className="h-4 w-4 animate-pulse" />
+            SYS_INIT_SEQUENCE // 0.2.6
+          </div>
 
-          <h1
-            ref={headingRef}
-            style={{
-              fontSize: 'clamp(46px, 5.5vw, 78px)',
-              fontWeight: 900,
-              lineHeight: 1.05,
-              color: '#ffffff',
-              marginBottom: 28,
-              opacity: 0,
-              letterSpacing: '-0.02em',
-            }}
-          >
-            We Build Digital
-            <br />
-            Systems That
-            <br />
-            <span style={{ color: 'var(--brand-red)' }}>Scale Brands.</span>
-          </h1>
+          {/* Heading with Cyber Sub-bracketing */}
+          <div style={{ position: 'relative', marginBottom: 28 }}>
+            <div style={{ position: 'absolute', top: -10, left: 0, fontSize: 10, color: 'rgba(255,255,255,0.2)' }}>
+              [SRC_MODULE // BRAND_BOOST]
+            </div>
+            <h1
+              ref={headingRef}
+              style={{
+                fontSize: 'clamp(40px, 5vw, 72px)',
+                fontWeight: 900,
+                lineHeight: 1.05,
+                color: '#ffffff',
+                opacity: 0,
+                letterSpacing: '-0.03em',
+                textTransform: 'uppercase',
+              }}
+            >
+              We Build Digital
+              <br />
+              Systems That
+              <br />
+              <span style={{ color: 'var(--brand-red)', textShadow: '0 0 20px rgba(192,38,26,0.3)' }}>Scale Brands.</span>
+            </h1>
+          </div>
 
+          {/* Terminal Descriptive Text */}
           <p
             ref={subRef}
             style={{
-              fontSize: 17,
+              fontSize: 15,
               lineHeight: 1.7,
-              color: 'rgba(255,255,255,0.65)',
-              maxWidth: 460,
-              marginBottom: 44,
+              color: 'rgba(255,255,255,0.55)',
+              maxWidth: 500,
+              marginBottom: 40,
               opacity: 0,
+              borderLeft: '2px solid var(--border)',
+              paddingLeft: 16,
+              fontFamily: 'var(--font-sans), sans-serif',
             }}
           >
-            From strategy to execution — we craft high-performing websites,
-            powerful content, and data-driven campaigns that deliver real growth.
+            From strategy to execution — we craft high-performing engines, 
+            optimized deployment channels, and data-driven loops engineered to capture real target traction.
           </p>
 
+          {/* Execute Function Switches */}
           <div
             ref={buttonsRef}
             style={{
@@ -152,31 +143,30 @@ export default function HeroSection() {
                 backgroundColor: 'var(--brand-red)',
                 color: '#ffffff',
                 fontWeight: 700,
-                fontSize: 15,
-                padding: '15px 28px',
+                fontSize: 14,
+                padding: '14px 24px',
                 border: 'none',
                 cursor: 'pointer',
-                borderRadius: 4,
+                borderRadius: 2,
                 opacity: 0,
-                transition:
-                  'background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease',
-                letterSpacing: '0.01em',
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+                boxShadow: '0 0 15px rgba(192,38,26,0.3)',
+                transition: 'all 0.3s ease',
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLElement;
                 el.style.backgroundColor = 'var(--brand-red-light)';
-                el.style.transform = 'translateY(-2px)';
-                el.style.boxShadow = '0 8px 24px rgba(192,38,26,0.4)';
+                el.style.boxShadow = '0 0 25px rgba(192,38,26,0.6)';
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLElement;
                 el.style.backgroundColor = 'var(--brand-red)';
-                el.style.transform = 'translateY(0)';
-                el.style.boxShadow = 'none';
+                el.style.boxShadow = '0 0 15px rgba(192,38,26,0.3)';
               }}
             >
-              Explore Services
-              <ArrowUpRight size={17} strokeWidth={2.5} />
+              RUN_CORE_SERVICES
+              <ArrowUpRight size={15} strokeWidth={2.5} />
             </button>
 
             <button
@@ -184,82 +174,69 @@ export default function HeroSection() {
                 display: 'flex',
                 alignItems: 'center',
                 gap: 10,
-                backgroundColor: 'transparent',
+                backgroundColor: 'rgba(255,255,255,0.02)',
                 color: '#ffffff',
                 fontWeight: 600,
-                fontSize: 15,
-                padding: '14px 28px',
-                border: '1.5px solid rgba(255,255,255,0.25)',
+                fontSize: 14,
+                padding: '13px 24px',
+                border: '1px solid rgba(255,255,255,0.15)',
                 cursor: 'pointer',
-                borderRadius: 4,
+                borderRadius: 2,
                 opacity: 0,
-                transition:
-                  'border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease',
-                letterSpacing: '0.01em',
+                letterSpacing: '0.05em',
+                textTransform: 'uppercase',
+                transition: 'all 0.3s ease',
               }}
               onMouseEnter={(e) => {
                 const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = 'rgba(255,255,255,0.6)';
-                el.style.backgroundColor = 'rgba(255,255,255,0.05)';
-                el.style.transform = 'translateY(-2px)';
+                el.style.borderColor = 'var(--brand-red)';
+                el.style.backgroundColor = 'rgba(192,38,26,0.05)';
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLElement;
-                el.style.borderColor = 'rgba(255,255,255,0.25)';
-                el.style.backgroundColor = 'transparent';
-                el.style.transform = 'translateY(0)';
+                el.style.borderColor = 'rgba(255,255,255,0.15)';
+                el.style.backgroundColor = 'rgba(255,255,255,0.02)';
               }}
             >
-              See Our Work
+              VIEW_SYSTEM_LOGS
             </button>
           </div>
 
-          {/* Handwritten annotation */}
+          {/* Bottom Live System Metrics Panel */}
           <div
             ref={annotationRef}
-            style={{ display: 'flex', alignItems: 'center', gap: 16, opacity: 0 }}
+            style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: 8, 
+              opacity: 0, 
+              border: '1px solid var(--border)',
+              backgroundColor: 'rgba(0,0,0,0.3)',
+              padding: '16px',
+              maxWidth: 400,
+              borderRadius: 4
+            }}
           >
-            <svg
-              width="56"
-              height="44"
-              viewBox="0 0 56 44"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              style={{ flexShrink: 0 }}
-            >
-              <path
-                d="M4 4C8 16 28 20 44 12"
-                stroke="rgba(255,255,255,0.5)"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                fill="none"
-              />
-              <path
-                d="M40 8L44 12L38 14"
-                stroke="rgba(255,255,255,0.5)"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+          <div className="flex w-full justify-between text-[10px] text-white/30">
+            <span>TELEMETRY_LOG_FEED</span>
+            <span className="animate-pulse text-[var(--brand-red)]">ONLINE</span>
+          </div>
             <p
               style={{
-                fontFamily: 'var(--font-dancing)',
-                fontSize: 22,
-                color: 'rgba(255,255,255,0.75)',
-                lineHeight: 1.3,
+                fontSize: 12,
+                color: 'rgba(255,255,255,0.7)',
+                lineHeight: 1.4,
               }}
             >
-              Let&apos;s build
-              <br />
-              something epic!
+              &gt; Ready to execute deployment parameters. <br />
+              &gt; Status: Let&apos;s build something epic!
             </p>
           </div>
         </div>
 
- {/* Right: Rocket */}
-       {/* Right: Rocket */}
+        {/* Right Side: The Telemetry Tracking Canvas */}
         <div
+          ref={rocketRef}
           style={{
             position: 'relative',
             width: '100%',
@@ -267,12 +244,29 @@ export default function HeroSection() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            border: '1px solid var(--border)',
+            backgroundColor: 'rgba(0,0,0,0.2)',
+            borderRadius: 6,
+            boxShadow: 'inset 0 0 30px rgba(192,38,26,0.03)',
+            opacity: 0,
           }}
         >
+          {/* Cyber HUD Overlays directly over the Canvas */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.2)_50%)] bg-[size:100%_4px] pointer-events-none z-20 opacity-40" />
+          
+          <div className="absolute top-4 left-4 font-mono text-[10px] text-white/30 z-20 flex items-center gap-2">
+            <TerminalSquare className="h-3.5 w-3.5 text-[var(--brand-red)]" />
+            MODEL: THRUST_ENGINE_3D
+          </div>
+          
+          <div className="absolute bottom-4 right-4 font-mono text-[10px] text-[var(--brand-red)] z-20 tracking-widest flex items-center gap-1.5">
+            <ShieldAlert className="h-3 w-3 animate-ping" />
+            VECTOR_TARGET_LOCKED
+          </div>
+
           <Canvas
             id="canvas"
-            // Re-added the Z-position for the camera (was missing a number in your snippet)
-            camera={{ position: [0, 0, 14], fov:45, near: 0.1, far: 200 }}
+            camera={{ position: [0, 0, 14], fov: 45, near: 0.1, far: 200 }}
             style={{ width: '100%', height: '100%' }}
           >
             <StudioLights />
@@ -283,38 +277,32 @@ export default function HeroSection() {
               cursor={true}
               snap={true} 
               speed={1} 
-              // Changed the default viewing angle so it faces left/forward slightly
-              rotation={[0, -0.6, 0]} 
+              rotation={[0, -0.6, 0]}
               polar={[-0.2, 0.2]}
               azimuth={[-Math.PI / 4, Math.PI / 4]}
             >
               <Float
                 speed={2}
-                rotationIntensity={0.2} // Lowered slightly so the tilt stays prominent
-                floatIntensity={1.5}
+                rotationIntensity={0.15}
+                floatIntensity={1.2}
                 floatingRange={[-0.2, 0.2]}
               >
-                <RocketModel
-                  scale={6} // Slightly increased to fill the space well
-                  // Moved it slightly right (X) and down (Y) to match the composition
+                <RocketModelFix
+                  scale={6} 
                   position={[-9, -3, 0]} 
-                  // The magic numbers to match your reference image:
-                  // X: Tilts it forward/back
-                  // Y: Rotates the logo to face the camera
-                  // Z: Gives it that severe "launching up and to the right" tilt
                   rotation={[0.4, 0.5, -0.8]} 
                 />
               </Float>
             </PresentationControls>
           </Canvas>
         </div>
-      
       </div>
 
       <style jsx>{`
-        @media (max-width: 768px) {
+        @media (max-width: 992px) {
           .hero-grid {
             grid-template-columns: 1fr !important;
+            gap: 40px !important;
           }
         }
       `}</style>

@@ -1,56 +1,72 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { animate, stagger } from "animejs"
-import { ArrowRight, Globe, Smartphone, TrendingUp, Video, Cpu, Search, Users, Camera } from "lucide-react"
+import { ArrowUpRight, Globe, Smartphone, TrendingUp, Video, Cpu, Search, Users, Camera } from "lucide-react"
 
 const services = [
   {
+    id: "SYS-WEBDV-01",
     icon: Globe,
     title: "Web Development",
+    tagline: "ARCH-SCALABLE / HIGH-PERF",
     description: "We build high-performance, visually compelling websites engineered for user experience and conversion. From responsive design to scalable architecture, our focus is on creating a robust digital foundation that drives business growth.",
     link: "/services/web-development",
   },
   {
+    id: "SYS-SOCMM-02",
     icon: Smartphone,
     title: "Social Media Marketing",
+    tagline: "STRAT-ENGAGE / DATA-DRIVEN",
     description: "We craft data-driven social media strategies that build brand awareness, foster community engagement, and deliver measurable business results across platforms like Instagram, Facebook, LinkedIn, and more.",
     link: "/services/social-media",
   },
   {
+    id: "SYS-PERFM-03",
     icon: TrendingUp,
     title: "Performance Marketing",
+    tagline: "FUNNEL-OPT / ROI-MAXIMIZER",
     description: "Our targeted campaigns are designed to maximize ROI through paid ads, retargeting, and funnel optimization. We track and optimize every rupee spent to ensure your marketing budget delivers the highest possible return.",
     link: "/services/performance-marketing",
   },
   {
+    id: "SYS-UGCCC-04",
     icon: Video,
     title: "UGC Content Creation",
+    tagline: "TRUST-MATRIX / SOCIAL-PROOF",
     description: "We harness the power of user-generated content to build authentic brand trust and credibility. By amplifying your most loyal customers' voices, we create powerful, relatable connections with your target audience.",
     link: "/services/ugc-content",
   },
   {
+    id: "SYS-AICNT-05",
     icon: Cpu,
     title: "AI Content Creation",
+    tagline: "CORE-GENERATIVE / SCALE-GEN",
     description: "We leverage cutting-edge AI tools to generate high-quality, scalable content that is both creative and data-optimized — from blog posts and ad copy to product descriptions — keeping your brand ahead of the curve.",
     link: "/services/ai-content",
   },
   {
+    id: "SYS-SEOPT-06",
     icon: Search,
-    title: "Search Engine Optimization (SEO)",
+    title: "Search Engine Optimization",
+    tagline: "RANK-INDEX / ORGANIC-FLOW",
     description: "We improve your online visibility and drive consistent organic traffic through strategic SEO — covering on-page optimization, technical audits, keyword research, and link building to rank you at the top of search results.",
     link: "/services/seo",
   },
   {
+    id: "SYS-INFLM-07",
     icon: Users,
     title: "Influencer Marketing",
+    tagline: "NODE-AMPLIFY / MATRIX-REACH",
     description: "We connect your brand with authentic, niche-relevant influencers who genuinely promote your products to their audiences. Our campaigns are designed to build trust, expand reach, and drive real conversions.",
     link: "/services/influencer-marketing",
   },
   {
+    id: "SYS-BRAND-08",
     icon: Camera,
     title: "Branding & Product Shoot",
+    tagline: "VIS-STORY / ASSET-CAPTURE",
     description: "We capture your brand's unique identity through professional photography and creative styling. Our visual storytelling is designed to create a strong, consistent brand image across all marketing channels.",
     link: "/services/branding-shoots",
   },
@@ -59,6 +75,7 @@ const services = [
 export default function ServicesSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const hasAnimated = useRef(false)
+  const [activeIndex, setActiveIndex] = useState<number>(0)
 
   useEffect(() => {
     if (typeof window !== "undefined" && "IntersectionObserver" in window) {
@@ -68,12 +85,11 @@ export default function ServicesSection() {
             if (entry.isIntersecting && !hasAnimated.current) {
               hasAnimated.current = true
               
-              // Anime.js v4.5.0 syntax
-              animate(".service-card", {
-                y: [60, 0],
+              animate(".tech-matrix-row", {
+                x: [-30, 0],
                 opacity: [0, 1],
-                delay: stagger(100),
-                duration: 1000,
+                delay: stagger(60),
+                duration: 600,
                 ease: "outExpo"
               })
             }
@@ -87,63 +103,123 @@ export default function ServicesSection() {
     }
   }, [])
 
+  const currentService = services[activeIndex]
+  const ActiveIcon = currentService.icon
+
   return (
-    // Removed bg-[var(--background)] so the global Tron grid shows through
-    <section ref={containerRef} className="relative py-24 md:py-32 overflow-hidden">
+    <section ref={containerRef} className="relative py-24 md:py-32 overflow-hidden select-none">
       <div className="mx-auto max-w-7xl px-6 relative z-10">
-        {/* Header Block */}
-        <div className="mb-20 max-w-3xl">
-          <p className="text-[var(--brand-red)] text-xs font-bold tracking-[0.2em] uppercase mb-4">
-            Our Expertise
-          </p>
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tight leading-[1.1] mb-6">
-            Systems & Strategies <br />
-            <span className="text-[var(--brand-red)]">Built to Scale.</span>
-          </h2>
-          <p className="text-white/60 text-lg leading-relaxed max-w-2xl">
-            We deliver end-to-end digital capabilities designed to elevate presence, capture market interest, and convert momentum into measurable bottom-line growth.
-          </p>
+        
+        {/* Technical Header System */}
+        <div className="mb-20 grid grid-cols-1 lg:grid-cols-12 gap-6 items-end border-b border-[var(--border)] pb-8">
+          <div className="lg:col-span-8">
+            <div className="flex items-center gap-2 text-[var(--brand-red)] font-mono text-xs tracking-[0.3em] uppercase mb-4">
+              <span className="inline-block h-1.5 w-1.5 bg-[var(--brand-red)] animate-pulse" />
+              CAPABILITIES_CORE_MATRIX
+            </div>
+            <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter uppercase font-mono">
+              SYSTEM_CAPABILITY
+            </h2>
+          </div>
+          <div className="lg:col-span-4 lg:text-right text-white/40 font-mono text-xs tracking-wider">
+            [ LOC_SYS: //THE_CREW_HOUSE_MEDIA ]
+          </div>
         </div>
 
-        {/* Services Grid Framework */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, i) => (
-            <Link 
-              key={i} 
-              href={service.link} 
-              className="service-card group relative block h-full rounded-[var(--radius)] p-[2px] overflow-hidden opacity-0"
-            >
-              {/* --- TRON EDGE TRACER --- */}
-              <div className="absolute inset-[-100%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,transparent_80%,var(--brand-red)_100%)] opacity-30 group-hover:opacity-100 transition-opacity duration-500" />
-              
-              {/* Inner Card Container */}
-              <div className="relative h-full w-full bg-[var(--card)] rounded-[calc(var(--radius)-2px)] p-8 flex flex-col justify-between z-10 transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_0_40px_rgba(192,38,26,0.2)]">
-                
-                {/* --- CYBER GRID BACKGROUND --- */}
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[calc(var(--radius)-2px)] pointer-events-none" />
+        {/* Main Split Interface */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          
+          {/* LEFT: System Matrix Menu (Changed to col-span-6 for 50/50 split) */}
+          <div className="lg:col-span-6 flex flex-col font-mono">
+            {services.map((service, i) => {
+              const isSelected = activeIndex === i
+              return (
+                <div
+                  key={service.id}
+                  onMouseEnter={() => setActiveIndex(i)}
+                  className="tech-matrix-row opacity-0 relative border-b border-[var(--border)]/40 py-5 transition-all duration-300 flex items-center justify-between group cursor-pointer"
+                >
+                  {/* Neon selector tracker element */}
+                  <div className={`absolute left-0 top-0 bottom-0 w-[2px] bg-[var(--brand-red)] transition-all duration-300 ${isSelected ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'}`} />
 
-                <div className="relative z-20">
-                  {/* Glowing Icon Frame */}
-                  <div className="mb-6 h-12 w-12 rounded-[var(--radius-md)] bg-black/50 border border-[var(--border)] flex items-center justify-center text-white/50 group-hover:border-[var(--brand-red)] group-hover:text-[var(--brand-red)] group-hover:shadow-[0_0_15px_rgba(192,38,26,0.5)] transition-all duration-300">
-                    <service.icon className="h-6 w-6 drop-shadow-md" strokeWidth={1.8} />
+                  <div className="flex items-center gap-6 pl-4 transition-transform duration-300 group-hover:translate-x-2">
+                    <span className={`text-xs font-bold ${isSelected ? 'text-[var(--brand-red)]' : 'text-white/20'}`}>
+                      {service.id.split("-")[1]} //
+                    </span>
+                    <h3 className={`text-lg md:text-2xl font-black tracking-tight uppercase transition-all duration-300 ${isSelected ? 'text-[var(--brand-red)] drop-shadow-[0_0_8px_rgba(192,38,26,0.6)]' : 'text-white/60 group-hover:text-white'}`}>
+                      {service.title}
+                    </h3>
                   </div>
-                  
-                  {/* Content */}
-                  <h3 className="text-white font-extrabold text-xl mb-3 tracking-tight group-hover:text-[var(--brand-red)] group-hover:drop-shadow-[0_0_8px_rgba(192,38,26,0.8)] transition-all duration-300">
-                    {service.title}
-                  </h3>
-                  <p className="text-white/60 text-sm leading-relaxed font-normal group-hover:text-white/80 transition-colors duration-300">
-                    {service.description}
+
+                  <div className="flex items-center gap-4 pr-4 font-bold text-xs">
+                    <span className={`hidden xl:inline text-white/20 transition-colors duration-300 ${isSelected ? 'text-[var(--brand-red)]/50' : ''}`}>
+                      {service.tagline}
+                    </span>
+                    <span className={`transition-colors ${isSelected ? 'text-[var(--brand-red)]' : 'text-white/20'}`}>
+                      {isSelected ? "[ + ]" : "[   ]"}
+                    </span>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+
+          {/* RIGHT: Live Cyber Terminal HUD Readout (Changed to col-span-6 for 50/50 split) */}
+          <div className="lg:col-span-6 lg:sticky lg:top-32">
+            {/* Increased padding from p-6 to p-8 */}
+            <div className="relative border border-[var(--border)] bg-black/40 rounded-[var(--radius-md)] overflow-hidden p-8 backdrop-blur-md shadow-[inset_0_0_20px_rgba(192,38,26,0.05)] group">
+              
+              {/* Scanline CRT Screen Effect Accent */}
+              <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.03),rgba(0,255,0,0.01),rgba(0,0,255,0.03))] bg-[size:100%_4px,6px_100%] pointer-events-none z-30" />
+              
+              {/* Terminal Frame Headers */}
+              <div className="flex items-center justify-between border-b border-[var(--border)] pb-4 mb-8 font-mono text-[11px] text-white/40 tracking-widest">
+                <div>HUD_STATUS: ACTIVE // {currentService.id}</div>
+                <div className="animate-pulse text-[var(--brand-red)]">● LIVE_FEED</div>
+              </div>
+
+              {/* Data Display Content Block (Increased min-height to 400px) */}
+              <div className="min-h-[400px] flex flex-col justify-between relative z-20">
+                <div>
+                  <div className="flex items-center gap-5 mb-6">
+                    {/* Increased icon box size */}
+                    <div className="h-14 w-14 border border-[var(--brand-red)]/50 bg-[var(--brand-red)]/5 flex items-center justify-center text-[var(--brand-red)] shadow-[0_0_15px_rgba(192,38,26,0.2)]">
+                      <ActiveIcon className="h-7 w-7" strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      {/* Scaled up text sizes */}
+                      <h4 className="text-white uppercase font-mono font-bold tracking-tight text-lg mb-1">
+                        {currentService.title}
+                      </h4>
+                      <p className="text-[var(--brand-red)] font-mono text-xs tracking-wider font-semibold">
+                        {currentService.tagline}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Scaled up description font size */}
+                  <p className="text-white/70 text-base leading-relaxed font-sans font-normal border-l-2 border-[var(--border)] pl-5 py-2 mb-8">
+                    {currentService.description}
                   </p>
                 </div>
 
-                {/* Subtle Action Link Accent */}
-                <div className="relative z-20 mt-8 flex items-center gap-2 text-[var(--brand-red)] text-xs font-bold uppercase tracking-wider opacity-60 group-hover:opacity-100 group-hover:drop-shadow-[0_0_5px_rgba(192,38,26,0.8)] transition-all duration-300">
-                  Learn more <ArrowRight className="h-3 w-3 transform group-hover:translate-x-1 transition-transform" />
+                {/* Subsystem Telemetry Controls Block */}
+                <div className="pt-6 border-t border-[var(--border)]/40 flex items-center justify-between font-mono text-xs">
+                  <span className="text-white/30 tracking-wider">NET_PROP: OPTIMIZED</span>
+                  {/* Scaled up button sizing */}
+                  <Link 
+                    href={currentService.link} 
+                    className="inline-flex items-center gap-2 bg-[var(--brand-red)] text-white px-6 py-3 font-bold tracking-widest uppercase hover:bg-white hover:text-black transition-colors shadow-[0_0_15px_rgba(192,38,26,0.3)] hover:shadow-none"
+                  >
+                    INIT_EXECUTE 
+                    <ArrowUpRight className="h-4 w-4" />
+                  </Link>
                 </div>
               </div>
-            </Link>
-          ))}
+
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
