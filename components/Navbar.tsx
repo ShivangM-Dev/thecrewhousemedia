@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Menu, X, TerminalSquare, Radio } from 'lucide-react';
+import { ArrowUpRight, Menu, X, Radio } from 'lucide-react';
 import Logo from './Logo';
 import { slideIn, staggerFadeUp } from '@/lib/animate';
 
@@ -21,12 +21,14 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Handle scroll detection
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle initial entrance animations
   useEffect(() => {
     if (navRef.current) {
       navRef.current.style.opacity = '0';
@@ -48,48 +50,28 @@ export default function Navbar() {
       });
     }
 
-    slideIn(ctaRef.current, { x: 30, delay: 700, duration: 700 });
+    if (ctaRef.current) {
+      slideIn(ctaRef.current, { x: 30, delay: 700, duration: 700 });
+    }
   }, []);
 
   return (
     <nav
       ref={navRef}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-        opacity: 0,
-        transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-        backgroundColor: scrolled ? 'rgba(8,8,8,0.75)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid var(--border)' : '1px solid rgba(38,38,38,0.2)',
-      }}
-      className="select-none font-mono"
+      className={`fixed top-0 inset-x-0 z-50 select-none font-mono opacity-0 transition-all duration-300 ease-out ${
+        scrolled
+          ? 'bg-[#080808]/80 backdrop-blur-md border-b border-[var(--border)]'
+          : 'bg-transparent border-b border-white/10'
+      }`}
     >
       {/* Laser Top Indicator Line */}
-      <div 
-        style={{
-          height: '2px',
-          width: scrolled ? '100%' : '0%',
-          backgroundColor: 'var(--brand-red)',
-          transition: 'width 0.5s ease',
-          boxShadow: '0 0 10px var(--brand-red)',
-        }} 
+      <div
+        className={`h-[2px] bg-[var(--brand-red)] transition-all duration-500 ease-in-out shadow-[0_0_10px_var(--brand-red)] ${
+          scrolled ? 'w-full' : 'w-0'
+        }`}
       />
 
-      <div
-        style={{
-          maxWidth: 1320,
-          margin: '0 auto',
-          padding: '0 24px',
-          height: 80,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
+      <div className="max-w-[1320px] mx-auto px-6 h-20 flex items-center justify-between">
         {/* Left Module: Branding Frame */}
         <div className="flex items-center gap-4">
           <Logo />
@@ -103,11 +85,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop links Array */}
-        <div
-          ref={linksRef}
-          style={{ display: 'flex', alignItems: 'center', gap: 32 }}
-          className="hidden md:flex"
-        >
+        <div ref={linksRef} className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <div key={link.label} className="nav-link-item opacity-0 flex items-center gap-1.5 group">
               <span className="text-[9px] text-white/20 group-hover:text-[var(--brand-red)] transition-colors">
@@ -115,25 +93,7 @@ export default function Navbar() {
               </span>
               <a
                 href={link.href}
-                style={{
-                  color: 'rgba(255,255,255,0.6)',
-                  fontSize: 14,
-                  fontWeight: 600,
-                  textDecoration: 'none',
-                  letterSpacing: '0.05em',
-                  textTransform: 'uppercase',
-                  transition: 'all 0.2s ease',
-                }}
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLElement;
-                  el.style.color = 'var(--brand-red)';
-                  el.style.textShadow = '0 0 8px rgba(192,38,26,0.5)';
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLElement;
-                  el.style.color = 'rgba(255,255,255,0.6)';
-                  el.style.textShadow = 'none';
-                }}
+                className="text-white/60 text-[14px] font-semibold tracking-wider uppercase no-underline transition-all duration-200 group-hover:text-[var(--brand-red)] group-hover:drop-shadow-[0_0_8px_rgba(192,38,26,0.5)]"
               >
                 {link.label}
               </a>
@@ -147,41 +107,17 @@ export default function Navbar() {
             [STATUS: ACTIVE] <br />
             [AUTH: GRANTED]
           </div>
-          
+
           <button
             ref={ctaRef}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              backgroundColor: 'rgba(192,38,26,0.1)',
-              color: '#ffffff',
-              fontWeight: 700,
-              fontSize: 13,
-              letterSpacing: '0.08em',
-              padding: '10px 20px',
-              border: '1px solid var(--brand-red)',
-              cursor: 'pointer',
-              borderRadius: 2,
-              opacity: 0,
-              textTransform: 'uppercase',
-              boxShadow: '0 0 15px rgba(192,38,26,0.15)',
-              transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-            }}
-            className="hidden md:flex group"
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLElement;
-              el.style.backgroundColor = 'var(--brand-red)';
-              el.style.boxShadow = '0 0 25px rgba(192,38,26,0.5)';
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLElement;
-              el.style.backgroundColor = 'rgba(192,38,26,0.1)';
-              el.style.boxShadow = '0 0 15px rgba(192,38,26,0.15)';
-            }}
+            className="hidden md:flex items-center gap-2 bg-[var(--brand-red)]/10 text-white font-bold text-[13px] tracking-[0.08em] px-5 py-2.5 border border-[var(--brand-red)] rounded-sm uppercase opacity-0 shadow-[0_0_15px_rgba(192,38,26,0.15)] transition-all duration-300 ease-out hover:bg-[var(--brand-red)] hover:shadow-[0_0_25px_rgba(192,38,26,0.5)] group"
           >
             INIT_GROWTH
-            <ArrowUpRight size={15} strokeWidth={2.5} className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUpRight
+              size={15}
+              strokeWidth={2.5}
+              className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+            />
           </button>
 
           {/* Mobile hamburger matrix switch */}
@@ -195,20 +131,13 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Telemetry Matrix Menu */}
-      {mobileOpen && (
-        <div
-          style={{
-            backgroundColor: 'rgba(8,8,8,0.96)',
-            borderTop: '1px solid var(--border)',
-            padding: '24px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 20,
-            backdropFilter: 'blur(20px)',
-          }}
-          className="md:hidden"
-        >
+      {/* Mobile Telemetry Matrix Menu Dropdown */}
+      <div
+        className={`md:hidden absolute top-full left-0 w-full bg-[#080808]/95 backdrop-blur-xl border-t border-[var(--border)] overflow-hidden transition-all duration-300 ease-in-out ${
+          mobileOpen ? 'max-h-[500px] opacity-100 py-6' : 'max-h-0 opacity-0 py-0'
+        }`}
+      >
+        <div className="px-6 flex flex-col gap-5">
           <div className="flex items-center gap-2 text-[10px] text-white/30 tracking-widest border-b border-[var(--border)] pb-2 mb-2">
             <Radio className="h-3.5 w-3.5 text-[var(--brand-red)] animate-pulse" />
             MOBILE_ROUTING_LAYER
@@ -218,50 +147,22 @@ export default function Navbar() {
             <a
               key={link.label}
               href={link.href}
-              style={{
-                color: 'rgba(255,255,255,0.7)',
-                fontSize: 16,
-                fontWeight: 600,
-                textDecoration: 'none',
-                textTransform: 'uppercase',
-                letterSpacing: '0.05em',
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-              className="hover:text-[var(--brand-red)] transition-colors py-1"
+              className="flex justify-between items-center text-white/70 text-base font-semibold uppercase tracking-wider no-underline hover:text-[var(--brand-red)] transition-colors py-1"
               onClick={() => setMobileOpen(false)}
             >
               <span>{link.label}</span>
-              <span className="text-xs text-white/20 font-mono">[0{i + 1}]</span>
+              <span className="text-xs text-white/20 font-mono">
+                [0{i + 1}]
+              </span>
             </a>
           ))}
 
-          <button
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 8,
-              backgroundColor: 'var(--brand-red)',
-              color: '#ffffff',
-              fontWeight: 700,
-              fontSize: 14,
-              padding: '12px 24px',
-              border: 'none',
-              cursor: 'pointer',
-              borderRadius: 2,
-              width: '100%',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              boxShadow: '0 0 15px rgba(192,38,26,0.3)',
-            }}
-          >
+          <button className="flex items-center justify-center gap-2 mt-4 bg-[var(--brand-red)] text-white font-bold text-[14px] px-6 py-3 rounded-sm w-full tracking-[0.08em] uppercase shadow-[0_0_15px_rgba(192,38,26,0.3)] transition-colors hover:bg-[var(--brand-red)]/80">
             INIT_GROWTH
             <ArrowUpRight size={16} strokeWidth={2.5} />
           </button>
         </div>
-      )}
+      </div>
     </nav>
   );
 }
